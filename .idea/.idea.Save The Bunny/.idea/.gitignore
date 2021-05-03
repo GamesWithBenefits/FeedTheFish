@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.Save The Bunny.iml
+# Datasource local storage ignored files
+/../../../../../../:\unity projects\Save The Bunny\.idea\.idea.Save The Bunny\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

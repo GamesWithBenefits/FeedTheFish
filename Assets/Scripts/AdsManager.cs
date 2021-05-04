@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class AdsManager : MonoBehaviour
 {
-    private BannerView _bannerView;
     private BannerView _banner1, _banner2, _banner3, _banner4;
     private RewardedAd _rewardedAd;
     private string[] _adUnitId;
@@ -29,7 +28,7 @@ public class AdsManager : MonoBehaviour
             "ca-app-pub-4174137669541969/4918983053",
             "ca-app-pub-4174137669541969/3527038008",
             "ca-app-pub-4174137669541969/8147975145",
-            "ca-app-pub-4174137669541969/8147975145",
+            "ca-app-pub-4174137669541969/3737763326",
             "ca-app-pub-4174137669541969/6245890056"
         };
         string rewardAdId = "ca-app-pub-4174137669541969/5186576363";
@@ -39,7 +38,7 @@ public class AdsManager : MonoBehaviour
         _adUnitId = adUnitId;
         if (SceneManager.GetActiveScene().name == "Menu")
         {
-            ShowAds(0)
+            ShowAds(0);
             ShowAds(1);
         }
         else
@@ -111,7 +110,7 @@ public class AdsManager : MonoBehaviour
     
     private void HandleUserEarnedReward(object sender, Reward args)
     {
-        GameManager.Instance.IncreaseCoins();
+       
     }
 
 }

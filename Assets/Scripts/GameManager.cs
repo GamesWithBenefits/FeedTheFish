@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject pauseButton;
     public GameObject pauseMenuPanel;
-    public static GameManager Instance;
+    public static GameManager instance;
     public bool gameOver = false;
     public int score = 0;
     public GameObject gameOverPanel;
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public Text[] scoreTextPanel;
     public AudioSource audioSource;
     public Text[] highscore;
+    public int a = 0;
+    public Button but;
 
     private void Start()
     {
@@ -27,9 +29,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
     }
     public void GameOver()
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour
         scoreTextPanel[1].text =score.ToString();
         GameObject.Find("Point").GetComponent<EnemySpawner>().StopSpawning();
         HighScore();
+        AdsManager.Instance.ShowAds(4);
+        AdsManager.Instance.ShowAds(5);
 
     }
     public void IncrementScore()
@@ -87,12 +91,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenuPanel.SetActive(false);
+        AdsManager.Instance.HideAds(2);
+        AdsManager.Instance.HideAds(3);
     }
     
     public void Pause()
     {
         Time.timeScale = 0f;
         pauseMenuPanel.SetActive(true);
+        AdsManager.Instance.ShowAds(2);
+        AdsManager.Instance.ShowAds(3);
     }
 
     public void HighScore()
@@ -110,5 +118,35 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         highscore[0].text = "0";
         highscore[1].text = "0";
+    }
+
+    public void NotGameOver()
+    {
+        Time.timeScale = 0f;
+        audioSource.Play();
+        scoreText.enabled = false;
+        pauseButton.SetActive(false);
+        gameOverPanel.SetActive(true);
+        scoreTextPanel[0].text =score.ToString();
+        scoreTextPanel[1].text =score.ToString();
+        HighScore();
+        AdsManager.Instance.ShowAds(4);
+        AdsManager.Instance.ShowAds(5);
+        
+    }
+
+    public void Continue()
+    {
+        Time.timeScale = 1f;
+        scoreText.enabled = true;
+        pauseButton.SetActive(true);
+        gameOverPanel.SetActive(false);
+        AdsManager.Instance.HideAds(4);
+        AdsManager.Instance.HideAds(5);
+    }
+    
+    public void OnClick()
+    {
+        but.interactable = false;
     }
 }

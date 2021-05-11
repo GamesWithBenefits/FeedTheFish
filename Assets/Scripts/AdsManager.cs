@@ -38,7 +38,6 @@ public class AdsManager : MonoBehaviour
         _adUnitId = adUnitId;
         if (SceneManager.GetActiveScene().name == "Menu")
         {
-            ShowAds(0);
             ShowAds(1);
         }
         else
@@ -104,13 +103,13 @@ public class AdsManager : MonoBehaviour
     {
         AdRequest adRequest = new AdRequest.Builder().Build();
         _rewardedAd.LoadAd(adRequest);
-        _rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        _rewardedAd.Show();
+        _rewardedAd.Show(); 
     }
     
     private void HandleUserEarnedReward(object sender, Reward args)
     {
        
     }
+    
 
 }

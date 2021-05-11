@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private int _randomT;
     public Rigidbody2D rb;
     private Transform _ques;
+    public bool isGamesOver = false;
     void Awake()
     {
         
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
-        if (GameManager.Instance.gameOver)
+        if (GameManager.instance.gameOver)
         {
             Destroy(gameObject);
         }
@@ -31,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (GameManager.Instance.score >= 0)
+        if (GameManager.instance.score >= 0)
         {
             if (col.gameObject.CompareTag("Player"))
             {
@@ -39,28 +40,33 @@ public class Enemy : MonoBehaviour
                 Destroy(dustEffect,1f);
                 if (_randomT % 2 == 0)
                 {
-                    Destroy(col.gameObject);
-                    GameManager.Instance.GameOver();
+                    if (GameManager.instance.a == 0)
+                    {
+                        GameManager.instance.NotGameOver();
+                        GameManager.instance.a++;
+
+                    }
+                    else if (GameManager.instance.a == 1)
+                    {
+                        Destroy(col.gameObject);
+                        GameManager.instance.GameOver();
+                    }
                 }
                 else
                 {
-
                     Destroy(gameObject);
-                    GameManager.Instance.IncrementScore();
+                    GameManager.instance.IncrementScore();
                 }
             }
-
-
-
             else if (col.gameObject.CompareTag("Ground"))
             {
                 if (_randomT % 2 == 0)
                 {
-                    GameManager.Instance.IncScore();
+                    GameManager.instance.IncScore();
                 }
                 else
                 {
-                    GameManager.Instance.DecrementScore();
+                    GameManager.instance.DecrementScore();
                 }
 
                 gameObject.SetActive(false);
@@ -71,21 +77,21 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.GameOver();
+            GameManager.instance.GameOver();
         }
     }
 
     void ControlSpeed()
     {
-        if (GameManager.Instance.score < 30)
+        if (GameManager.instance.score < 30)
         {
             rb.gravityScale = 0.03f;
         }
-        else if (GameManager.Instance.score > 30 && GameManager.Instance.score < 90 )
+        else if (GameManager.instance.score > 30 && GameManager.instance.score < 90 )
         {
             rb.gravityScale = 0.1f;
         }
-        if (GameManager.Instance.score > 90)
+        if (GameManager.instance.score > 90)
         {
             rb.gravityScale = 0.2f;
         }

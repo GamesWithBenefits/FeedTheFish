@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         {
             audioSource.Play();
         }
-        else if (GameManager.Instance.gameOver)
+        else if (GameManager.instance.gameOver)
         {
             audioSource.Stop();
         }

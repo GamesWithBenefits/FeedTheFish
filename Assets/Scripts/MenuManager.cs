@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public Text highScore;
-    //private bool _displayText = true;
-    
+
     private void Start()
     {
         highScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();

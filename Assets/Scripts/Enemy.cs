@@ -75,6 +75,14 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject, 2f);
             }
         }
+        
+        else if (GameManager.instance.a == 0)
+
+        {
+            GameManager.instance.NotGameOver();
+            GameManager.instance.a++;
+                
+        }
         else
         {
             GameManager.instance.GameOver();

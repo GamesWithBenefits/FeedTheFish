@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
             {
                 GameObject dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
                 Destroy(dustEffect,1f);
+                Destroy(gameObject);
                 if (_randomT % 2 == 0)
                 {
                     if (GameManager.instance.a == 0)

@@ -79,12 +79,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+        AdsManager.Instance.HideAds(4);
+        AdsManager.Instance.HideAds(5);
     }
 
     public void Restart()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        AdsManager.Instance.HideAds(4);
+        AdsManager.Instance.HideAds(5);
     }
 
     public void Resume()
@@ -130,23 +134,19 @@ public class GameManager : MonoBehaviour
         scoreTextPanel[0].text =score.ToString();
         scoreTextPanel[1].text =score.ToString();
         HighScore();
-        AdsManager.Instance.ShowAds(4);
-        AdsManager.Instance.ShowAds(5);
-        
+
     }
 
     public void Continue()
     {
         Time.timeScale = 1f;
-        scoreText.enabled = true;
-        pauseButton.SetActive(true);
-        gameOverPanel.SetActive(false);
-        AdsManager.Instance.HideAds(4);
-        AdsManager.Instance.HideAds(5);
     }
     
     public void OnClick()
     {
         but.interactable = false;
+        scoreText.enabled = true;
+        pauseButton.SetActive(true);
+        gameOverPanel.SetActive(false);
     }
 }

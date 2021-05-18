@@ -108,8 +108,6 @@ public class AdsManager : MonoBehaviour
     
     private void HandleUserEarnedReward(object sender, Reward args)
     {
-       
+       GameManager.instance.Continue();
     }
-    
-
 }

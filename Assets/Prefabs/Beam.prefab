@@ -227,9 +227,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0964123, y: -0.5631597}
+  m_Offset: {x: -0.096412346, y: -0.743658}
   serializedVersion: 2
-  m_Radius: 2.1210604
+  m_Radius: 1.6397322
 --- !u!114 &1050126082022655680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,4 +244,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dust: {fileID: 103313955982566239, guid: aca742ac868a8ca498dab7f89db3842b, type: 3}
   rb: {fileID: 5527847366456857000}
-  speed: 0.1
+  isGamesOver: 0

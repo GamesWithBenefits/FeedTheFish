@@ -43,6 +43,9 @@ public class AdsManager : MonoBehaviour
         else
         {
             _rewardedAd = new RewardedAd(rewardAdId);
+            _rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
+            _rewardedAd.OnAdLoaded += (o, args) => {_rewardedAd.Show(); };
+
         }
     }
 
@@ -101,9 +104,7 @@ public class AdsManager : MonoBehaviour
 
     public void RewardedVideo()
     {
-        AdRequest adRequest = new AdRequest.Builder().Build();
-        _rewardedAd.LoadAd(adRequest);
-        _rewardedAd.Show(); 
+        _rewardedAd.LoadAd(new AdRequest.Builder().Build());
     }
     
     private void HandleUserEarnedReward(object sender, Reward args)

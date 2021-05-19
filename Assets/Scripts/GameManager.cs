@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -10,14 +7,14 @@ public class GameManager : MonoBehaviour
     public GameObject pauseButton;
     public GameObject pauseMenuPanel;
     public static GameManager instance;
-    public bool gameOver = false;
-    public int score = 0;
+    public bool gameOver;
+    public int score;
     public GameObject gameOverPanel;
     public Text scoreText;
     public Text[] scoreTextPanel;
     public AudioSource audioSource;
     public Text[] highscore;
-    public int a = 0;
+    public int a;
     public Button but;
 
     private void Start()
@@ -140,13 +137,14 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         Time.timeScale = 1f;
+        scoreText.enabled = true;
+        pauseButton.SetActive(true);
+        gameOverPanel.SetActive(false);
     }
     
     public void OnClick()
     {
         but.interactable = false;
-        scoreText.enabled = true;
-        pauseButton.SetActive(true);
-        gameOverPanel.SetActive(false);
+        AdsManager.Instance.RewardedVideo();
     }
 }

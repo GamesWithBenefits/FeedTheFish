@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject pauseButton;
+    public GameObject rulesPanel;
     public GameObject pauseMenuPanel;
     public static GameManager instance;
     public bool gameOver;
@@ -19,9 +20,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        
         highscore[0].text = PlayerPrefs.GetInt("HighScore", 0).ToString();
         highscore[1].text = PlayerPrefs.GetInt("HighScore", 0).ToString();
-        
+        if (PlayerPrefs.GetInt("TutorialPlayed", 0) == 0)
+        {
+            Time.timeScale = 0f;
+            pauseButton.SetActive(false);
+            rulesPanel.SetActive(true);
+            PlayerPrefs.SetInt("TutorialPlayed", 10);
+        }
+        else
+        {
+            rulesPanel.SetActive(false);
+        }
+
     }
 
     private void Awake()
@@ -92,6 +105,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenuPanel.SetActive(false);
+        rulesPanel.SetActive(false);
+        pauseButton.SetActive(true);
         AdsManager.Instance.HideAds(2);
         AdsManager.Instance.HideAds(3);
     }
@@ -100,8 +115,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         pauseMenuPanel.SetActive(true);
+        pauseButton.SetActive(false);
         AdsManager.Instance.ShowAds(2);
         AdsManager.Instance.ShowAds(3);
+    }
+    
+    public void LoadRules()
+    {
+        pauseButton.SetActive(false);
+        pauseMenuPanel.SetActive(false);
+        rulesPanel.SetActive(true);
     }
 
     public void HighScore()

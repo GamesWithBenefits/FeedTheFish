@@ -1873,6 +1873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highScore: {fileID: 541921935}
+  sessionNumber: 0
 --- !u!4 &1311832563
 Transform:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +9,17 @@ public class MenuManager : MonoBehaviour
 {
     public Text highScore;
 
-    private void Start()
+
+    public void Start()
     {
+
         highScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+        
     }
     public void LoadNextLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Level 1");
     }
     public void DisplayHighScore()
     {
@@ -28,4 +32,5 @@ public class MenuManager : MonoBehaviour
             highScore.text = "0";
 
         }
+    
 }

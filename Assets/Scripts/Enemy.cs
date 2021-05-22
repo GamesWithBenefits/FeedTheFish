@@ -80,7 +80,6 @@ public class Enemy : MonoBehaviour
         else if (GameManager.instance.a == 0)
 
         {
-            Destroy(gameObject);
             GameManager.instance.NotGameOver();
             GameManager.instance.a++;
                 

@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
         else if (GameManager.instance.a == 0)
 
         {
+            Destroy(gameObject);
             GameManager.instance.NotGameOver();
             GameManager.instance.a++;
                 
@@ -96,11 +97,11 @@ public class Enemy : MonoBehaviour
         {
             rb.gravityScale = 0.03f;
         }
-        else if (GameManager.instance.score > 30 && GameManager.instance.score < 90 )
+        else if (GameManager.instance.score > 30 && GameManager.instance.score < 120 )
         {
             rb.gravityScale = 0.1f;
         }
-        if (GameManager.instance.score > 90)
+        if (GameManager.instance.score > 120)
         {
             rb.gravityScale = 0.2f;
         }

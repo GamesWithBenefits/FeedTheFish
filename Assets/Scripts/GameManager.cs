@@ -72,8 +72,19 @@ public class GameManager : MonoBehaviour
     {
         if (!gameOver)
         {
-            score--;
-           scoreText.text = score.ToString();
+            if (score < 30)
+            {
+                score--;
+            }
+            else if (score >= 30 && score < 120 )
+            {
+                score = score - 4;
+            }
+            if (score > 120)
+            {
+                score = score - 8;
+            }
+            scoreText.text = score.ToString();
         }
     }
     public void IncScore()

@@ -24,12 +24,12 @@ public class AdsManager : MonoBehaviour
 #if UNITY_ANDROID
         string[] adUnitId =
         {
-            "ca-app-pub-4174137669541969/8858228061",
+            //"ca-app-pub-4174137669541969/8858228061",
             "ca-app-pub-4174137669541969/4918983053",
             "ca-app-pub-4174137669541969/3527038008",
-            "ca-app-pub-4174137669541969/8147975145",
-            "ca-app-pub-4174137669541969/3737763326",
-            "ca-app-pub-4174137669541969/6245890056"
+            //"ca-app-pub-4174137669541969/8147975145",
+            "ca-app-pub-4174137669541969/3737763326"
+            //"ca-app-pub-4174137669541969/6245890056"
         };
         string rewardAdId = "ca-app-pub-4174137669541969/5186576363";
 #else
@@ -81,16 +81,16 @@ public class AdsManager : MonoBehaviour
         {
             case 0: _banner1 = RequestBanner(_adUnitId[0], AdPosition.Top);
                 break;
-            case 1: _banner2 = RequestBanner(_adUnitId[1], AdPosition.Bottom);
+            case 1: _banner2 = RequestBanner(_adUnitId[1], AdPosition.Top);
                 break;
             case 2: _banner1 = RequestBanner(_adUnitId[2], AdPosition.Top);
                 break;
-            case 3: _banner2 = RequestBanner(_adUnitId[3], AdPosition.Bottom);
+           /* case 3: _banner2 = RequestBanner(_adUnitId[3], AdPosition.Bottom);
                 break;
             case 4: _banner3 = RequestBanner(_adUnitId[4], AdPosition.Top);
                 break;
             case 5: _banner4 = RequestBanner(_adUnitId[5], AdPosition.Bottom);
-                break;
+                break;*/
         }
     }
 

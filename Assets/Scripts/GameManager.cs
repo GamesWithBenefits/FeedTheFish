@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseButton;
     public GameObject rulesPanel;
     public GameObject pauseMenuPanel;
-    public static GameManager instance;
+    public static GameManager Instance;
     public bool gameOver;
     public int score;
     public GameObject gameOverPanel;
@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
     }
     public void GameOver()
@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
         scoreTextPanel[1].text =score.ToString();
         GameObject.Find("Point").GetComponent<EnemySpawner>().StopSpawning();
         HighScore();
-        AdsManager.Instance.ShowAds(4);
-        AdsManager.Instance.ShowAds(5);
+        AdsManager.Instance.ShowAds(1);
+       // AdsManager.Instance.ShowAds(5);
 
     }
     public void IncrementScore()
@@ -100,16 +100,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
-        AdsManager.Instance.HideAds(4);
-        AdsManager.Instance.HideAds(5);
+        AdsManager.Instance.HideAds(1);
+        //AdsManager.Instance.HideAds(5);
     }
 
     public void Restart()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        AdsManager.Instance.HideAds(4);
-        AdsManager.Instance.HideAds(5);
+        AdsManager.Instance.HideAds(1);
+       // AdsManager.Instance.HideAds(5);
     }
 
     public void Resume()
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
         rulesPanel.SetActive(false);
         pauseButton.SetActive(true);
         AdsManager.Instance.HideAds(2);
-        AdsManager.Instance.HideAds(3);
+        //AdsManager.Instance.HideAds(3);
     }
     
     public void Pause()
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         pauseMenuPanel.SetActive(true);
         pauseButton.SetActive(false);
         AdsManager.Instance.ShowAds(2);
-        AdsManager.Instance.ShowAds(3);
+        //AdsManager.Instance.ShowAds(3);
     }
     
     public void LoadRules()

@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
-        if (GameManager.instance.gameOver)
+        if (GameManager.Instance.gameOver)
         {
             Destroy(gameObject);
         }
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (GameManager.instance.score >= 0)
+        if (GameManager.Instance.score >= 0)
         {
             if (col.gameObject.CompareTag("Player"))
             {
@@ -41,33 +41,33 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject);
                 if (_randomT % 2 == 0)
                 {
-                    if (GameManager.instance.a == 0)
+                    if (GameManager.Instance.a == 0)
                     {
-                        GameManager.instance.NotGameOver();
-                        GameManager.instance.a++;
+                        GameManager.Instance.NotGameOver();
+                        GameManager.Instance.a++;
 
                     }
-                    else if (GameManager.instance.a == 1)
+                    else if (GameManager.Instance.a == 1)
                     {
                         Destroy(col.gameObject);
-                        GameManager.instance.GameOver();
+                        GameManager.Instance.GameOver();
                     }
                 }
                 else
                 {
                     Destroy(gameObject);
-                    GameManager.instance.IncrementScore();
+                    GameManager.Instance.IncrementScore();
                 }
             }
             else if (col.gameObject.CompareTag("Ground"))
             {
                 if (_randomT % 2 == 0)
                 {
-                    GameManager.instance.IncScore();
+                    GameManager.Instance.IncScore();
                 }
                 else
                 {
-                    GameManager.instance.DecrementScore();
+                    GameManager.Instance.DecrementScore();
                 }
 
                 gameObject.SetActive(false);
@@ -77,30 +77,31 @@ public class Enemy : MonoBehaviour
             }
         }
         
-        else if (GameManager.instance.a == 0)
+        else if (GameManager.Instance.a == 0)
 
         {
-            GameManager.instance.NotGameOver();
-            GameManager.instance.a++;
+            GameManager.Instance.NotGameOver();
+            GameManager.Instance.a++;
                 
         }
         else
         {
-            GameManager.instance.GameOver();
+            GameManager.Instance.GameOver();
+            Destroy(gameObject, 2f);
         }
     }
 
     void ControlSpeed()
     {
-        if (GameManager.instance.score < 30)
+        if (GameManager.Instance.score < 30)
         {
             rb.gravityScale = 0.03f;
         }
-        else if (GameManager.instance.score > 30 && GameManager.instance.score < 120 )
+        else if (GameManager.Instance.score > 30 && GameManager.Instance.score < 120 )
         {
             rb.gravityScale = 0.1f;
         }
-        if (GameManager.instance.score > 120)
+        if (GameManager.Instance.score > 120)
         {
             rb.gravityScale = 0.2f;
         }

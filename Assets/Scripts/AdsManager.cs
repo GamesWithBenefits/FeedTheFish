@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class AdsManager : MonoBehaviour
 {
-    private BannerView _banner1, _banner2, _banner3, _banner4;
+    private BannerView _banner1, _banner2, _banner3; //, _banner4;
     private RewardedAd _rewardedAd;
     private string[] _adUnitId;
     public static AdsManager Instance;
@@ -38,7 +38,7 @@ public class AdsManager : MonoBehaviour
         _adUnitId = adUnitId;
         if (SceneManager.GetActiveScene().name == "Menu")
         {
-            ShowAds(1);
+            ShowAds(0);
         }
         else
         {
@@ -66,12 +66,12 @@ public class AdsManager : MonoBehaviour
             case 1: _banner2.Hide();
                 _banner2.Destroy();
                 break;
-            case 2: _banner1.Hide();
-                _banner1.Destroy();
+            case 2: _banner3.Hide();
+                _banner3.Destroy();
                 break;
-            case 3: _banner2.Hide();
+           /* case 3: _banner2.Hide();
                 _banner2.Destroy();
-                break;
+                break; */
         }
     }
     
@@ -83,7 +83,7 @@ public class AdsManager : MonoBehaviour
                 break;
             case 1: _banner2 = RequestBanner(_adUnitId[1], AdPosition.Top);
                 break;
-            case 2: _banner1 = RequestBanner(_adUnitId[2], AdPosition.Top);
+            case 2: _banner3 = RequestBanner(_adUnitId[2], AdPosition.Top);
                 break;
            /* case 3: _banner2 = RequestBanner(_adUnitId[3], AdPosition.Bottom);
                 break;
@@ -99,7 +99,7 @@ public class AdsManager : MonoBehaviour
         _banner1?.Destroy();
         _banner2?.Destroy();
         _banner3?.Destroy();
-        _banner4?.Destroy();
+        //_banner4?.Destroy();
     }
 
     public void RewardedVideo()
@@ -109,6 +109,6 @@ public class AdsManager : MonoBehaviour
     
     private void HandleUserEarnedReward(object sender, Reward args)
     {
-       GameManager.instance.Continue();
+       GameManager.Instance.Continue();
     }
 }

@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Point").GetComponent<EnemySpawner>().StopSpawning();
         HighScore();
         AdsManager.Instance.ShowAds(1);
-       // AdsManager.Instance.ShowAds(5);
+       
 
     }
     public void IncrementScore()
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
         AdsManager.Instance.HideAds(1);
-        //AdsManager.Instance.HideAds(5);
+        
     }
 
     public void Restart()
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         AdsManager.Instance.HideAds(1);
-       // AdsManager.Instance.HideAds(5);
+      
     }
 
     public void Resume()
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
         rulesPanel.SetActive(false);
         pauseButton.SetActive(true);
         AdsManager.Instance.HideAds(2);
-        //AdsManager.Instance.HideAds(3);
+        
     }
     
     public void Pause()
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         pauseMenuPanel.SetActive(true);
         pauseButton.SetActive(false);
         AdsManager.Instance.ShowAds(2);
-        //AdsManager.Instance.ShowAds(3);
+        
     }
     
     public void LoadRules()

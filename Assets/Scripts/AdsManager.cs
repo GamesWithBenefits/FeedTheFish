@@ -29,11 +29,16 @@ public class AdsManager : MonoBehaviour
 #if UNITY_ANDROID
         string[] adUnitId =
         {
-            "ca-app-pub-4174137669541969/4918983053",
-            "ca-app-pub-4174137669541969/3527038008",
-            "ca-app-pub-4174137669541969/3737763326"
+           "ca-app-pub-4174137669541969/4918983053",
+            "ca-app-pub-4174137669541969/3737763326",
+            "ca-app-pub-4174137669541969/3527038008" 
+           
+           /* "ca-app-pub-3940256099942544/6300978111",
+           "ca-app-pub-3940256099942544/6300978111",
+           "ca-app-pub-3940256099942544/6300978111" */
         };
         string rewardAdId = "ca-app-pub-4174137669541969/5186576363";
+        //string rewardAdId = "ca-app-pub-3940256099942544/5224354917";
 #else
         _adUnitId = "unexpected_platform";
 #endif
@@ -55,6 +60,7 @@ public class AdsManager : MonoBehaviour
     {
         BannerView banner = new BannerView(adUnit, AdSize.Banner, position);
         banner.LoadAd(new AdRequest.Builder().Build());
+        banner.OnAdLoaded += (o, args) => { banner.Show();};
         return banner;
     }
 

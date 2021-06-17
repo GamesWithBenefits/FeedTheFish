@@ -8,19 +8,24 @@ public class GameManager : MonoBehaviour
     public GameObject rulesPanel;
     public GameObject pauseMenuPanel;
     public static GameManager Instance;
+    
     public bool gameOver;
     public int score;
     public GameObject gameOverPanel;
+    
     public Text scoreText;
     public Text[] scoreTextPanel;
     public AudioSource audioSource;
+    
     public Text[] highscore;
-    public int a;
+    public int livesleft = 3;
     public Button but;
+    public GameObject[] image;
+    
 
     private void Start()
     {
-        
+
         highscore[0].text = PlayerPrefs.GetInt("HighScore", 0).ToString();
         highscore[1].text = PlayerPrefs.GetInt("HighScore", 0).ToString();
         if (PlayerPrefs.GetInt("TutorialPlayed", 0) == 0)
@@ -29,8 +34,7 @@ public class GameManager : MonoBehaviour
             pauseButton.SetActive(false);
             rulesPanel.SetActive(true);
             PlayerPrefs.SetInt("TutorialPlayed", 10);
-        }
-        else
+        } else
         {
             rulesPanel.SetActive(false);
         }
@@ -51,12 +55,12 @@ public class GameManager : MonoBehaviour
         pauseButton.SetActive(false);
         gameOverPanel.SetActive(true);
         gameOver = true;
-        scoreTextPanel[0].text =score.ToString();
-        scoreTextPanel[1].text =score.ToString();
+        scoreTextPanel[0].text = score.ToString();
+        scoreTextPanel[1].text = score.ToString();
         GameObject.Find("Point").GetComponent<EnemySpawner>().StopSpawning();
         HighScore();
         AdsManager.Instance.ShowAds(1);
-       
+
 
     }
     public void IncrementScore()
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
             score = score + 2;
             scoreText.text = score.ToString();
         }
-        
+
     }
     public void DecrementScore()
     {
@@ -75,8 +79,7 @@ public class GameManager : MonoBehaviour
             if (score < 30)
             {
                 score--;
-            }
-            else if (score >= 30 && score < 120 )
+            } else if (score >= 30 && score < 120)
             {
                 score = score - 4;
             }
@@ -94,14 +97,14 @@ public class GameManager : MonoBehaviour
             score++;
             scoreText.text = score.ToString();
         }
-        
+
     }
     public void MainMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
         AdsManager.Instance.HideAds(1);
-        
+
     }
 
     public void Restart()
@@ -109,7 +112,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         AdsManager.Instance.HideAds(1);
-      
+
     }
 
     public void Resume()
@@ -119,18 +122,18 @@ public class GameManager : MonoBehaviour
         rulesPanel.SetActive(false);
         pauseButton.SetActive(true);
         AdsManager.Instance.HideAds(2);
-        
+
     }
-    
+
     public void Pause()
     {
         Time.timeScale = 0f;
         pauseMenuPanel.SetActive(true);
         pauseButton.SetActive(false);
         AdsManager.Instance.ShowAds(2);
-        
+
     }
-    
+
     public void LoadRules()
     {
         pauseButton.SetActive(false);
@@ -146,7 +149,7 @@ public class GameManager : MonoBehaviour
             highscore[0].text = score.ToString();
             highscore[1].text = score.ToString();
         }
-        
+
     }
     public void Reset()
     {
@@ -162,8 +165,8 @@ public class GameManager : MonoBehaviour
         scoreText.enabled = false;
         pauseButton.SetActive(false);
         gameOverPanel.SetActive(true);
-        scoreTextPanel[0].text =score.ToString();
-        scoreTextPanel[1].text =score.ToString();
+        scoreTextPanel[0].text = score.ToString();
+        scoreTextPanel[1].text = score.ToString();
         HighScore();
 
     }
@@ -175,10 +178,38 @@ public class GameManager : MonoBehaviour
         pauseButton.SetActive(true);
         gameOverPanel.SetActive(false);
     }
-    
+
     public void OnClick()
     {
         but.interactable = false;
         AdsManager.Instance.RewardedVideo();
     }
+
+    public void GameLives()
+    {
+        switch (livesleft)
+        {
+            case 2:
+                image[0].SetActive(true);
+                image[1].SetActive(true);
+                image[2].SetActive(false);
+                break;
+            case 1:
+                image[0].SetActive(true);
+                image[1].SetActive(false);
+                image[2].SetActive(false);
+                break;
+            case 0:
+                image[0].SetActive(false);
+                image[1].SetActive(false);
+                image[2].SetActive(false);
+                break;
+        }
+    }
+
+    public void ScoreandLives()
+    {
+        
+    }
+    
 }

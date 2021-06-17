@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
@@ -11,7 +7,6 @@ public class Enemy : MonoBehaviour
     private int _randomT;
     public Rigidbody2D rb;
     private Transform _ques;
-    public bool isGamesOver = false;
     void Awake()
     {
         
@@ -32,22 +27,24 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (GameManager.Instance.score >= 0)
+        GameManager.Instance.GameLives();
+        if (GameManager.Instance.livesleft >= 0)
         {
             if (col.gameObject.CompareTag("Player"))
             {
-                GameObject dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
+                var dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
                 Destroy(dustEffect,1f);
                 Destroy(gameObject);
                 if (_randomT % 2 == 0)
                 {
-                    if (GameManager.Instance.a == 0)
+                    GameManager.Instance.livesleft--;
+                    if (GameManager.Instance.livesleft == -1)
                     {
                         GameManager.Instance.NotGameOver();
-                        GameManager.Instance.a++;
+                        GameManager.Instance.livesleft--;
 
                     }
-                    else if (GameManager.Instance.a == 1)
+                    else if (GameManager.Instance.livesleft == -2)
                     {
                         Destroy(col.gameObject);
                         GameManager.Instance.GameOver();
@@ -77,11 +74,11 @@ public class Enemy : MonoBehaviour
             }
         }
         
-        else if (GameManager.Instance.a == 0)
+        else if (GameManager.Instance.livesleft == -2)
 
         {
             GameManager.Instance.NotGameOver();
-            GameManager.Instance.a++;
+            GameManager.Instance.livesleft++;
                 
         }
         else

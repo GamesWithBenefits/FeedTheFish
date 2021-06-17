@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -16,17 +14,17 @@ public class EnemySpawner : MonoBehaviour
         
         float randomX = Random.Range(-xPositionLimit, xPositionLimit);
         Vector2 spawnPosition = new Vector2(randomX, transform.position.y);
-        GameObject tempEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
+        Instantiate(enemy, spawnPosition, Quaternion.identity);
     }
 
     void StartSpawning()
     {
-        InvokeRepeating("SpawnSpike", 1f, spawnRate);
+        InvokeRepeating(nameof(SpawnSpike), 1f, spawnRate);
     }
 
     public void StopSpawning()
     {
-        CancelInvoke("SpawnSpike");
+        CancelInvoke(nameof(SpawnSpike));
         enabled = false;
     }
 }

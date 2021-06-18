@@ -65,30 +65,30 @@ public class GameManager : MonoBehaviour
     }
     public void IncrementScore()
     {
-        if (!gameOver)
-        {
-            score = score + 2;
-            scoreText.text = score.ToString();
-        }
+        if (gameOver)
+            return;
+
+        score += 2;
+        scoreText.text = score.ToString();
 
     }
     public void DecrementScore()
     {
-        if (!gameOver)
+        if (gameOver)
+            return;
+
+        if (score < 30)
         {
-            if (score < 30)
-            {
-                score--;
-            } else if (score >= 30 && score < 120)
-            {
-                score = score - 4;
-            }
-            if (score > 120)
-            {
-                score = score - 8;
-            }
-            scoreText.text = score.ToString();
+            score--;
+        } else if (score >= 30 && score < 120)
+        {
+            score -= 4;
         }
+        if (score > 120)
+        {
+            score -= 8;
+        }
+        scoreText.text = score.ToString();
     }
     public void IncScore()
     {
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        AdsManager.Instance.HideAds(1);
+        AdsManager.Instance.HideAds(2);
 
     }
 
@@ -141,14 +141,14 @@ public class GameManager : MonoBehaviour
         rulesPanel.SetActive(true);
     }
 
-    public void HighScore()
+    private void HighScore()
     {
-        if (score > PlayerPrefs.GetInt("HighScore", 0))
-        {
-            PlayerPrefs.SetInt("HighScore", score);
-            highscore[0].text = score.ToString();
-            highscore[1].text = score.ToString();
-        }
+        if (score <= PlayerPrefs.GetInt("HighScore", 0))
+            return;
+
+        PlayerPrefs.SetInt("HighScore", score);
+        highscore[0].text = score.ToString();
+        highscore[1].text = score.ToString();
 
     }
     public void Reset()
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         highscore[1].text = "0";
     }
 
-    public void NotGameOver()
+    private void NotGameOver()
     {
         Time.timeScale = 0f;
         audioSource.Play();
@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
         AdsManager.Instance.RewardedVideo();
     }
 
-    public void GameLives()
+    private void GameLives()
     {
         switch (livesleft)
         {
@@ -207,9 +207,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ScoreandLives()
+    public void LivesChecker()
     {
-        
+        livesleft--;
+        GameLives();
+        switch (livesleft)
+        {
+            case -1:
+                NotGameOver();
+                break;
+            case -2:
+                GameOver();
+                break;
+        }
     }
-    
 }
+
+

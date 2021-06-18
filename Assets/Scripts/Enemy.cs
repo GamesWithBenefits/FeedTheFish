@@ -4,18 +4,22 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     public GameObject dust;
-    private int _randomT;
+    protected int RandomT;
     public Rigidbody2D rb;
     private Transform _ques;
-    void Awake()
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+    private void Awake()
     {
         
-        _randomT = Random.Range(1, 100);
+        RandomT = Random.Range(1, 100);
         _ques = transform.GetChild(0);
-        _ques.GetComponent<TextMesh>().text = _randomT.ToString();
+        _ques.GetComponent<TextMesh>().text = RandomT.ToString();
     }
-    
-    void Update()
+
+    private void Update()
     {
         if (GameManager.Instance.gameOver)
         {
@@ -25,70 +29,45 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        GameManager.Instance.GameLives();
-        if (GameManager.Instance.livesleft >= 0)
+        if (col.gameObject.CompareTag("Player"))
         {
-            if (col.gameObject.CompareTag("Player"))
+            var dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
+            Destroy(dustEffect,1f);
+            Destroy(gameObject);
+            if (RandomT % 2 == 0)
             {
-                var dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
-                Destroy(dustEffect,1f);
+                GameManager.Instance.LivesChecker();
+            }
+            else
+            {
+                GameManager.Instance.IncrementScore();
                 Destroy(gameObject);
-                if (_randomT % 2 == 0)
-                {
-                    GameManager.Instance.livesleft--;
-                    if (GameManager.Instance.livesleft == -1)
-                    {
-                        GameManager.Instance.NotGameOver();
-                        GameManager.Instance.livesleft--;
-
-                    }
-                    else if (GameManager.Instance.livesleft == -2)
-                    {
-                        Destroy(col.gameObject);
-                        GameManager.Instance.GameOver();
-                    }
-                }
-                else
-                {
-                    Destroy(gameObject);
-                    GameManager.Instance.IncrementScore();
-                }
             }
-            else if (col.gameObject.CompareTag("Ground"))
+        }
+        else if (col.gameObject.CompareTag("Ground"))
+        {
+            if (RandomT % 2 == 0)
+                GameManager.Instance.IncScore();
+            else
             {
-                if (_randomT % 2 == 0)
+                GameManager.Instance.DecrementScore();
+                if (GameManager.Instance.score < 0)
                 {
-                    GameManager.Instance.IncScore();
+                    GameManager.Instance.LivesChecker();
                 }
-                else
-                {
-                    GameManager.Instance.DecrementScore();
-                }
-
-                gameObject.SetActive(false);
-                GameObject dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
-                Destroy(dustEffect, 2f);
-                Destroy(gameObject, 2f);
             }
-        }
-        
-        else if (GameManager.Instance.livesleft == -2)
 
-        {
-            GameManager.Instance.NotGameOver();
-            GameManager.Instance.livesleft++;
-                
-        }
-        else
-        {
-            GameManager.Instance.GameOver();
+            
+            gameObject.SetActive(false);
+            var dustEffect = Instantiate(dust, transform.position, Quaternion.identity);
+            Destroy(dustEffect, 2f);
             Destroy(gameObject, 2f);
         }
     }
 
-    void ControlSpeed()
+    private void ControlSpeed()
     {
         if (GameManager.Instance.score < 30)
         {

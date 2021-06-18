@@ -84,11 +84,11 @@ public class AdsManager : MonoBehaviour
     {
         switch (i)
         {
-            case 0: _banner1 = RequestBanner(_adUnitId[0], AdPosition.Top);
+            case 0: _banner1 = RequestBanner(_adUnitId[0], AdPosition.Bottom);
                 break;
-            case 1: _banner2 = RequestBanner(_adUnitId[1], AdPosition.Top);
+            case 1: _banner2 = RequestBanner(_adUnitId[1], AdPosition.Bottom);
                 break;
-            case 2: _banner3 = RequestBanner(_adUnitId[2], AdPosition.Top);
+            case 2: _banner3 = RequestBanner(_adUnitId[2], AdPosition.Bottom);
                 break;
         }
     }

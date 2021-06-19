@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+   [SerializeField] private Animator[] lifeAnimation;
     public GameObject pauseButton;
     public GameObject rulesPanel;
     public GameObject pauseMenuPanel;
@@ -21,7 +22,8 @@ public class GameManager : MonoBehaviour
     public int livesleft = 3;
     public Button but;
     public GameObject[] image;
-    
+    private static readonly int PlayAnim = Animator.StringToHash("PlayAnim");
+
 
     private void Start()
     {
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-    public void GameOver()
+    private void GameOver()
     {
         audioSource.Play();
         scoreText.enabled = false;
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
         scoreTextPanel[1].text = score.ToString();
         GameObject.Find("Point").GetComponent<EnemySpawner>().StopSpawning();
         HighScore();
-        AdsManager.Instance.ShowAds(1);
+        AdsManager.Instance.ShowAds(3);
 
 
     }
@@ -92,18 +94,19 @@ public class GameManager : MonoBehaviour
     }
     public void IncScore()
     {
-        if (!gameOver)
-        {
-            score++;
-            scoreText.text = score.ToString();
-        }
+        if (gameOver)
+            return;
+
+        score++;
+        scoreText.text = score.ToString();
 
     }
     public void MainMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
-        AdsManager.Instance.HideAds(1);
+        AdsManager.Instance.HideAds(2);
+        AdsManager.Instance.HideAds(3);
 
     }
 
@@ -190,19 +193,14 @@ public class GameManager : MonoBehaviour
         switch (livesleft)
         {
             case 2:
-                image[0].SetActive(true);
-                image[1].SetActive(true);
-                image[2].SetActive(false);
+                lifeAnimation[0].SetBool(PlayAnim, true);
+                
                 break;
             case 1:
-                image[0].SetActive(true);
-                image[1].SetActive(false);
-                image[2].SetActive(false);
+                lifeAnimation[1].SetBool(PlayAnim, true);
                 break;
             case 0:
-                image[0].SetActive(false);
-                image[1].SetActive(false);
-                image[2].SetActive(false);
+                lifeAnimation[2].SetBool(PlayAnim, true);
                 break;
         }
     }

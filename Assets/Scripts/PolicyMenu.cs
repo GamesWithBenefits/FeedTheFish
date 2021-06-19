@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PolicyMenu : MonoBehaviour
@@ -11,10 +9,9 @@ public class PolicyMenu : MonoBehaviour
         if (accepted)
             return;
         
-        SimpleGDPR.ShowDialog( new TermsOfServiceDialog().
-                        SetTermsOfServiceLink( "https://feed-the-fish-0.flycricket.io/terms.html" ).
-                        SetPrivacyPolicyLink( "https://feed-the-fish-0.flycricket.io/privacy.html" ),
-                OnMenuClosed );
+        new TermsOfServiceDialog().
+                SetTermsOfServiceLink( "https://feed-the-fish-0.flycricket.io/terms.html" ).
+                SetPrivacyPolicyLink( "https://feed-the-fish-0.flycricket.io/privacy.html" ).ShowDialog(OnMenuClosed );
     }
 
     private void OnMenuClosed()

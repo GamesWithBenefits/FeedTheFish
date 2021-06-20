@@ -68,22 +68,21 @@ public class AdsManager : MonoBehaviour
     {
         switch (i)
         {
-            case 0: _banner1.Hide();
-                _banner1.Destroy();
+            case 0: 
+                _banner1?.Hide();
+                _banner1?.Destroy();
                 break;
             case 1:
-                if (_banner2 != null)
-                {
-                    _banner2.Hide();
-                    _banner2.Destroy();
-                }
+               
+                    _banner2?.Hide();
+                    _banner2?.Destroy();
+                
                 break;
             case 2:
-                if (_banner3 != null)
-                {
-                    _banner3.Hide();
-                    _banner3.Destroy();
-                }
+                
+                    _banner3?.Hide();
+                    _banner3?.Destroy();
+               
                 
                 break;
         }
@@ -93,7 +92,7 @@ public class AdsManager : MonoBehaviour
     {
         switch (i)
         {
-            case 0: _banner1 = RequestBanner(_adUnitId[0], AdPosition.Top);
+            case 0: _banner1 = RequestBanner(_adUnitId[0], AdPosition.Bottom);
                 break;
             case 1: _banner2 = RequestBanner(_adUnitId[1], AdPosition.Bottom);
                 break;

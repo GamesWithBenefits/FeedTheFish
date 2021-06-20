@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -174,12 +176,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void Continue()
+    public async void  Continue()
     {
-        Time.timeScale = 1f;
+
+        await Task.Delay(10);
+        Time.timeScale = 0f;
+        
         scoreText.enabled = true;
         pauseButton.SetActive(true);
         gameOverPanel.SetActive(false);
+
+        await Task.Delay(5000);
+        
+        Time.timeScale = 1f;
+        
     }
 
     public void OnClick()
